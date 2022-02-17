@@ -11,23 +11,29 @@ New User Log-In
 ```mermaid
 sequenceDiagram
     autonumber
-    Joe User ->> Portal: Requests Home Page
+    participant User as Joe User
+    participant Portal
+    participant DB as Postgres
+    participant CAS
+    participant LDAP
+
+    User ->> Portal: Requests Home Page
     Note right of Portal: The redirection is actually more complex:<br/> / → /login → /auth/cas → CAS itself
-    Portal -->> Joe User: redirects to CAS authentication
-    Joe User -->> CAS: 
-    CAS -->> Joe User: Returns CAS authentication page
-    Joe User ->> CAS: Logs in
+    Portal -->> User: redirects to CAS authentication
+    User -->> CAS: 
+    CAS -->> User: Returns CAS authentication page
+    User ->> CAS: Logs in
 
     Note right of CAS: CAS likely depends on<br/> LDAP and other services,<br/> but we are not concerned<br/> with those details.
     %% CAS -->> LDAP: looks up user
     %% LDAP -->> CAS: returns user information
     
-    Portal -->> Postgres: Looks up Joe User
-    Postgres -->> Portal: returns no results
-    Portal -->> LDAP: looks up Joe User
+    Portal -->> DB: Looks up User
+    DB -->> Portal: returns no results
+    Portal -->> LDAP: looks up User
     LDAP -->> Portal: Returns user information
-    Portal -->> Postgres: Creates user record
-    Portal -->> Joe User: Returns home page
+    Portal -->> DB: Creates user record
+    Portal -->> User: Returns home page
 ```
 
 
