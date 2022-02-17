@@ -10,6 +10,7 @@ New User Log-In
 
 ```mermaid
 sequenceDiagram
+    autonumber
     Joe User ->> Portal: Requests Home Page
     Note right of Portal: The redirection is actually more complex:<br/> / → /login → /auth/cas → CAS itself
     Portal -->> Joe User: redirects to CAS authentication
