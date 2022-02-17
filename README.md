@@ -16,6 +16,9 @@ sequenceDiagram
     participant DB as Postgres
     participant CAS
     participant LDAP
+    
+    link DB: Dashboard @ https://www.postgresql.org/docs/13/release-13-6.html
+    link Portal: Dashboard @ https://portal.berkeley.edu
 
     User ->> Portal: Requests Home Page
     Note right of Portal: The redirection is actually more complex:<br/> / → /login → /auth/cas → CAS itself
